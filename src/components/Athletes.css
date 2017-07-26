@@ -1,3 +1,16 @@
 .ListBoxDiv {
     
 }
+
+li {
+    text-decoration: none;
+    padding: 5px;
+    display: inline-block;
+    clear: all;
+    text-align: center;
+}
+
+span {
+    float: left;
+    text-align: center;
+}

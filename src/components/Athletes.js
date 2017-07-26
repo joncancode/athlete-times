@@ -5,11 +5,9 @@ import './Athletes.css';
 
 export default function Athletes(props) {
 
-return <div className="Athletes">
-    
-    <p className="athleteName">{props.name}</p>
-    <p className="athleteTime">{props.time}</p>
-
-    </div>
+return <ul className="Athletes">
+            <li className="athleteName">{props.name}</li>
+            <li className="athleteTime">{props.time} seconds</li>
+        </ul>
 
 }

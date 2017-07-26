@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Form from './components/Form.js';
-import ListBox from './components/ListBox.js';
+import TimeInput from './components/TimeInput.js';
+import NameInput from './components/NameInput.js';
+import ListButtons from './components/ListButtons.js';
+import Athletes from './components/Athletes.js';
 
 class App extends Component {
   constructor(props) {
@@ -32,29 +33,49 @@ class App extends Component {
       ]
     }
   }
+
+
+addName(name) {
+  console.log(name, 'test');
+   this.setState({name});
+  // this.setState({time})
 }
 
+addTime(time) {
+  
+  console.log(time);
+  this.setState({time})
+}
 
-findContent(index){
+addCustom(e) {
+  e.preventDefault();
 
-  var athleteInfo;
-
+ 
 }
 
 render() {
 
-  // const athletes = this.state.athleteInfo.map((athleteInfo, index) =>
-  //           <ListBox key={index} index={index} {...athleteInfo} />
+  const athletes = this.state.athleteInfo.map((athlete, index) =>
+            <Athletes key={index} index={index} {...athlete} />
+        );
+
+  // const custom = this.state..map((customized, index) =>
+  //           <Athletes key={index} index={index} {...customized} />
   //       );
 
   return (
     <div className="App">
 
-      <h1>Fastest Times!</h1>
-
-      <Form />
-      {athletes}
-      <ListBox key={index} index={index} {...athleteInfo}/>
+    <h1>Fastest Times!</h1>
+    <form onSubmit={(e) => this.addCustom(e)}  className="Form" >
+      <NameInput value={this.state.name} onChange={value =>this.addName(value)} />
+      <TimeInput value={this.state.time} onChange={value =>this.addTime(value)} />
+      <br/>
+    <button className="add" onSubmit={this.onSubmit}>Add</button>
+    </form>
+    <ListButtons />
+    {athletes}
+    <Athletes value={this.state.name} name={this.state.name} time={this.state.time} />
 
     </div>
   );
