@@ -37,19 +37,18 @@ class App extends Component {
 
 addName(name) {
   console.log(name, 'test');
-   this.setState({name});
+   this.setState({Name: this.state.athleteInfo.concat([name])});
   // this.setState({time})
 }
 
 addTime(time) {
   
   console.log(time);
-  this.setState({time})
+ this.setState({Time: this.state.athleteInfo.concat([time])});
 }
 
 addCustom(e) {
   e.preventDefault();
-
  
 }
 
