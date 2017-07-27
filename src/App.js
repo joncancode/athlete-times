@@ -4,81 +4,83 @@ import TimeInput from './components/TimeInput.js';
 import NameInput from './components/NameInput.js';
 import ListButtons from './components/ListButtons.js';
 import Athletes from './components/Athletes.js';
+import { data } from './data';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      athleteInfo: [
-        {
-          name: "Usain Bolt",
-          time: 9.58
-        },
-        {
-          name: "Tyson Gay",
-          time: 9.69
-        },
-        {
-          name: "Asafa Powell",
-          time: 9.72
-        },
-        {
-          name: "Maurice Greene",
-          time: 9.79
-        },
-        {
-          name: "Donovan Bailey",
-          time: 9.84
-        }
-      ]
-    }
+      athleteInfo: data,
+      timeInput: '',
+      nameInput: ''
+    };
   }
 
+  onChangeValue = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
-addName(name) {
-  console.log(name, 'test');
-   this.setState({Name: this.state.athleteInfo.concat([name])});
-  // this.setState({time})
-}
+  onSubmit = e => {
+    e.preventDefault();
+    console.log('ARRaY', this.state.athleteInfo);
+    console.log('ARRaY2', ...this.state.athleteInfo);
+    this.setState({
+      athleteInfo: [
+        ...this.state.athleteInfo,
+        { name: this.state.nameInput, time: this.state.timeInput }
+      ],
+      nameInput: '',
+      timeInput: ''
+    });
+  };
 
-addTime(time) {
-  
-  console.log(time);
- this.setState({Time: this.state.athleteInfo.concat([time])});
-}
+  get athletes() {
+    return this.state.athleteInfo.map((athlete, index) =>
+      <Athletes key={index} index={index} {...athlete} />
+    );
+  }
 
-addCustom(e) {
-  e.preventDefault();
- 
-}
+  render() {
 
-render() {
-
-  const athletes = this.state.athleteInfo.map((athlete, index) =>
-            <Athletes key={index} index={index} {...athlete} />
-        );
-
-  // const custom = this.state..map((customized, index) =>
-  //           <Athletes key={index} index={index} {...customized} />
-  //       );
-
-  return (
-    <div className="App">
-
-    <h1>Fastest Times!</h1>
-    <form onSubmit={(e) => this.addCustom(e)}  className="Form" >
-      <NameInput value={this.state.name} onChange={value =>this.addName(value)} />
-      <TimeInput value={this.state.time} onChange={value =>this.addTime(value)} />
-      <br/>
-    <button className="add" onSubmit={this.onSubmit}>Add</button>
-    </form>
-    <ListButtons />
-    {athletes}
-    <Athletes value={this.state.name} name={this.state.name} time={this.state.time} />
-
-    </div>
-  );
-}
+    return (
+      <div className="App">
+        <h1>Fastest Times!</h1>
+        <form onSubmit={this.onSubmit} className="Form">
+          <div>
+            <label className="name">Enter Your Name</label>
+            <input
+              className="nameInput"
+              name="nameInput"
+              placeholder="Usain Bolt"
+              onChange={this.onChangeValue}
+              value={this.state.nameInput}
+              required
+            />
+          </div>
+          <div>
+            <label className="time">Enter Your Time</label>
+            <input
+              className="timeInput"
+              type="number"
+              placeholder="9.58"
+              name="timeInput"
+              onChange={this.onChangeValue}
+              value={this.state.timeInput}
+              required
+            />
+          </div>
+          <br />
+          <button className="add" onSubmit={this.onSubmit}>
+            Add
+          </button>
+        </form>
+        <ListButtons />
+        {this.athletes}
+      </div>
+    );
+  }
 }
 
 export default App;
