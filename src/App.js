@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import TimeInput from './components/TimeInput.js';
-import NameInput from './components/NameInput.js';
+//import TimeInput from './components/TimeInput.js';
+//import NameInput from './components/NameInput.js';
 import ListButtons from './components/ListButtons.js';
 import Athletes from './components/Athletes.js';
 import { data } from './data';
