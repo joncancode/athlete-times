@@ -24,8 +24,8 @@ class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log('ARRaY', this.state.athleteInfo);
-    console.log('ARRaY2', ...this.state.athleteInfo);
+    console.log('no spread', this.state.athleteInfo);
+    console.log('spread op', ...this.state.athleteInfo);
     this.setState({
       athleteInfo: [
         ...this.state.athleteInfo,
