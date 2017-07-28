@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import TimeInput from './components/TimeInput.js';
-import NameInput from './components/NameInput.js';
 import ListButtons from './components/ListButtons.js';
 import Athletes from './components/Athletes.js';
 import { data } from './data';
@@ -17,6 +15,7 @@ class App extends Component {
   }
 
   onChangeValue = e => {
+    console.log("onchange", e.target.name);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -24,8 +23,8 @@ class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log('ARRaY', this.state.athleteInfo);
-    console.log('ARRaY2', ...this.state.athleteInfo);
+    //console.log('ARRaY', this.state.athleteInfo);
+    //console.log('ARRaY2', ...this.state.athleteInfo);
     this.setState({
       athleteInfo: [
         ...this.state.athleteInfo,
@@ -35,6 +34,16 @@ class App extends Component {
       timeInput: ''
     });
   };
+
+  onClick = e => {
+    const array = this.state.athleteInfo;
+    //for (let i=0; i < array.length; i++) {
+     array.sort(function(a, b) {
+       console.log('A', a.time);
+       return a.time - b.time;
+     });
+    //}
+    }
 
   get athletes() {
     return this.state.athleteInfo.map((athlete, index) =>
@@ -46,7 +55,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Fastest Times!</h1>
+        <h1>How do you match up to the world's faster 100M sprinters?</h1>
         <form onSubmit={this.onSubmit} className="Form">
           <div>
             <label className="name">Enter Your Name</label>
@@ -64,6 +73,7 @@ class App extends Component {
             <input
               className="timeInput"
               type="number"
+              step=".01"
               placeholder="9.58"
               name="timeInput"
               onChange={this.onChangeValue}
@@ -76,7 +86,9 @@ class App extends Component {
             Add
           </button>
         </form>
-        <ListButtons />
+         <button className="listName" >Sort by Athlete Name</button>
+        <button className="listTime" onClick={this.onClick}> Sort by Time</button>
+        <ListButtons onClick={this.onClick}/>
         {this.athletes}
       </div>
     );
