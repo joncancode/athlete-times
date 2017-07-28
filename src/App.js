@@ -55,7 +55,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>How do you match up to the world's faster 100M sprinters?</h1>
+        <h1>How do you measure up to the world's fastest 100M sprinters?</h1>
         <form onSubmit={this.onSubmit} className="Form">
           <div>
             <label className="name">Enter Your Name</label>
